@@ -10,7 +10,8 @@ interface UnitProps {
   lessons: (typeof lessons.$inferSelect & { completed: boolean })[];
   activeLesson:
     | (typeof lessons.$inferSelect & { unit: typeof units.$inferSelect })
-    | undefined;
+    | undefined
+    | any;
   activeLessonPercentage: number;
 }
 
