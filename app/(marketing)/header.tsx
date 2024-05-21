@@ -25,7 +25,7 @@ export const Header = () => {
         <ClerkLoading>
           <Loader className=" h-5 w-5 text-muted-foreground animate-spin " />
         </ClerkLoading>
-        
+
         {/* Clerk kütüphanesi başarıyla yüklendiğinde gösterilecek içerik */}
         <ClerkLoaded>
           {/* Kullanıcı oturum açtığında gösterilecek içerik */}
