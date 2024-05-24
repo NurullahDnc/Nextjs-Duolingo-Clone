@@ -21,11 +21,12 @@ const Challenge = ({
 }: challengeProps) => {
   return (
     <div
+    //classname duzenlendi gridler
       className={cn(
         "grid gap-2",
         type === "ASSIST" && "grid-cols-1",
         type === "SELECT" &&
-          "grid-cols-2 lg:grid-cols-[repat(auto-fit, minmax(0,1fr))]  "
+          "md:grid-cols-3 grid-cols-2 lg:grid-cols-[repat(auto-fit, minmax(0,1fr))]  "
       )}
     >
     {options.map((option, i)=>(

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 interface FooterProps {
   disabled?: boolean;
-  lessonId?: boolean;
+  lessonId?: number | boolean;
   status: "correct" | "wrong" | "none" | "completed";
   onCheck: () => void;
 }
@@ -16,7 +16,7 @@ const Footer = ({ disabled, status, onCheck, lessonId }: FooterProps) => {
   return (
     <footer
       className={cn(
-        "lg:-h[140px] h-[100px] border-t-2 ",
+        "lg:-h[140px] h-[100px] border-t-2  mt-5 ",
         status === "correct" && "border-transparent bg-green-100",
         status === "wrong" && "border-transparent bg-rose-100"
       )}
