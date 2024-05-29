@@ -6,9 +6,14 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-export async function post(req: Request) {
+export async function handler(req: Request) {
+
+  if (req.method !== "POST") {
+    return new NextResponse(`Method ${req.method} Not Allowed`, { status: 405 });
+  }
+
   const body = await req.text();
-  const signature = headers().get("stripe-signature") as string;
+  const signature = req.headers.get("stripe-signature") as string;
 
   let event: Stripe.Event;
 
@@ -19,7 +24,7 @@ export async function post(req: Request) {
       process.env.STRIPE_WEBHOOKS_SECRET!
     );
   } catch (error: any) {
-    return new NextResponse(` webhooks error: ${error.message}`, {
+    return new NextResponse(`webhooks error: ${error.message}`, {
       status: 400,
     });
   }
@@ -62,3 +67,5 @@ export async function post(req: Request) {
 
   return new NextResponse(null, { status: 200 });
 }
+
+export default handler;
