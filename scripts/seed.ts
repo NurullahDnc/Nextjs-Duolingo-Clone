@@ -20,6 +20,7 @@ const main = async () => {
     await db.delete(schema.challenges);
     await db.delete(schema.challengeOptions);
     await db.delete(schema.challengeProgress);
+    await db.delete(schema.userSubscription);
 
     await db.insert(schema.courses).values([
       {
@@ -95,43 +96,109 @@ const main = async () => {
         order: 1,
         question: 'Which one of these is the "the man"?',
       },
-      // {
-      //   id: 2,
-      //   lessonId: 1, // Nouns
-      //   type: "ASSIST",
-      //   order: 2,
-      //   question: '"the man"',
-      // },
-      // {
-      //   id: 3,
-      //   lessonId: 1, // Nouns
-      //   type: "SELECT",
-      //   order: 3,
-      //   question: 'Which one of these is the "the robot"?',
-      // },
+      {
+        id: 2,
+        lessonId: 1, // Nouns
+        type: "ASSIST",
+        order: 2,
+        question: '"the man"',
+      },
+      {
+        id: 3,
+        lessonId: 1, // Nouns
+        type: "SELECT",
+        order: 3,
+        question: 'Which one of these is the "the robot"?',
+      },
     ]);
 
     await db.insert(schema.challengeOptions).values([
       {
         challengesId: 1, // Which one of these is "the man"?
-        imageSrc: "/man.svg",
+        imageSrc: "/boy.svg",
         correct: true,
         text: "el hombre",
         audioSrc: "/es_man.mp3",
       },
       {
         challengesId: 1,
-        imageSrc: "/woman.svg",
+        imageSrc: "/girl.svg",
         correct: false,
         text: "la mujer",
         audioSrc: "/es_woman.mp3",
       },
       {
         challengesId: 1,
-        imageSrc: "/robot.svg",
+        imageSrc: "/zombie.svg",
         correct: false,
         text: "el robot",
         audioSrc: "/es_robot.mp3",
+      },
+    ]);
+
+    await db.insert(schema.challengeOptions).values([
+      {
+        challengesId: 2, // Which one of these is "the man"?
+        correct: true,
+        text: "el hombre",
+        audioSrc: "/es_man.mp3",
+      },
+      {
+        challengesId: 2,
+        correct: false,
+        text: "la mujer",
+        audioSrc: "/es_woman.mp3",
+      },
+      {
+        challengesId: 2,
+        correct: false,
+        text: "el robot",
+        audioSrc: "/es_robot.mp3",
+      },
+    ]);
+
+    await db.insert(schema.challengeOptions).values([
+      {
+        challengesId: 3, // Which one of these is "the man"?
+        correct: false,
+        text: "el hombre",
+        audioSrc: "/es_man.mp3",
+      },
+      {
+        challengesId: 3,
+        correct: false,
+        text: "la mujer",
+        audioSrc: "/es_woman.mp3",
+      },
+      {
+        challengesId: 3,
+        correct: true,
+        text: "el robot",
+        audioSrc: "/es_robot.mp3",
+      },
+    ]);
+
+    await db.insert(schema.challenges).values([
+      {
+        id: 4,
+        lessonId: 2, // Nouns
+        type: "SELECT",
+        order: 1,
+        question: 'Which one of these is the "the man"?',
+      },
+      {
+        id: 5,
+        lessonId: 2, // Nouns
+        type: "ASSIST",
+        order: 2,
+        question: '"the man"',
+      },
+      {
+        id: 6,
+        lessonId: 2, // Nouns
+        type: "SELECT",
+        order: 3,
+        question: 'Which one of these is the "the robot"?',
       },
     ]);
 
