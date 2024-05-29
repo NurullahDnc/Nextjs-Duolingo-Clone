@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+ 
+ 
+ 
+ <div align="center">
+   <a href="https://github.com/github_username/repo_name">
+     <img src="https://raw.githubusercontent.com/enesdmc0/react-country-info/main/images/logo.png" alt="Logo" width="80" height="80">
+   </a>
+ <h3 align="center">Nextjs-Duolingo-Clone</h3>
+ </div>
+ 
+ 
+ 
+ ## About The Project
+ 
+  ![Ekran görüntüsü 2024-05-29 170702](https://github.com/NurullahDnc/Nextjs-Duolingo-Clone/assets/150585098/096f3c29-d68b-4651-b61b-e6d5699bd4ab)
+   <hr/>
+![Ekran görüntüsü 2024-05-29 170742](https://github.com/NurullahDnc/Nextjs-Duolingo-Clone/assets/150585098/df902145-12ee-4608-9b39-eb07555eef26)
 
-## Getting Started
+   <hr/>
+![Ekran görüntüsü 2024-05-29 171118](https://github.com/NurullahDnc/Nextjs-Duolingo-Clone/assets/150585098/dfbb554a-d814-4dae-a817-60eb5ade63c7)
 
-First, run the development server:
+   <hr/>
+![Ekran görüntüsü 2024-05-29 172058](https://github.com/NurullahDnc/Nextjs-Duolingo-Clone/assets/150585098/d908709d-495b-4785-9b86-30c125f7f9bb)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   <hr/>
+![Ekran görüntüsü 2024-05-29 171149](https://github.com/NurullahDnc/Nextjs-Duolingo-Clone/assets/150585098/5f503ae3-270c-4fe3-9ab4-46f701f59d65)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   <hr/>
+   ![Ekran görüntüsü 2024-05-29 171730](https://github.com/NurullahDnc/Nextjs-Duolingo-Clone/assets/150585098/0cb3843d-87e6-46e9-bb8d-394d246f3937)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ## Build
+   - Next.js
+   - ui shadcn
+   - Clerk Authencation
+   - drizze   
+   - neon
+   - tailwindcss   
+ 
+ 
+   ## Contact
+ 
+   ### Nurullah Dinç
+ 
+   - [ ✉️ nurullah.dinc.156@gmail.com]()
+   - Linkedin : [https://www.linkedin.com/in/nurullah-dinc/](https://www.linkedin.com/in/nurullah-dinc/)
