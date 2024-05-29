@@ -2,42 +2,48 @@ import db from "@/db/drizzle";
 import { userSubscription } from "@/db/schema";
 import { stripe } from "@/lib/stripe";
 import { eq } from "drizzle-orm";
-import { headers } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 
-export async function handler(req: Request) {
+const stripeWebhookSecret = process.env.STRIPE_WEBHOOKS_SECRET!;
 
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
+  // Sadece POST isteklerini kabul edin.
   if (req.method !== "POST") {
-    return new NextResponse(`Method ${req.method} Not Allowed`, { status: 405 });
+    res.setHeader('Allow', ['POST']);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 
-  const body = await req.text();
-  const signature = req.headers.get("stripe-signature") as string;
+  const signature = req.headers["stripe-signature"] as string;
+  const body = await new Promise<string>((resolve, reject) => {
+    let data = '';
+    req.on('data', chunk => {
+      data += chunk;
+    });
+    req.on('end', () => {
+      resolve(data);
+    });
+    req.on('error', (err) => {
+      reject(err);
+    });
+  });
 
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      signature,
-      process.env.STRIPE_WEBHOOKS_SECRET!
-    );
+    event = stripe.webhooks.constructEvent(body, signature, stripeWebhookSecret);
   } catch (error: any) {
-    return new NextResponse(`webhooks error: ${error.message}`, {
-      status: 400,
-    });
+    return res.status(400).send(`Webhook error: ${error.message}`);
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
 
   if (event.type === "checkout.session.completed") {
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    );
+    const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
     if (!session?.metadata?.userId) {
-      return new NextResponse("User ID is required", { status: 400 });
+      return res.status(400).send("User ID is required");
     }
 
     await db.insert(userSubscription).values({
@@ -50,22 +56,13 @@ export async function handler(req: Request) {
   }
 
   if (event.type === "invoice.payment_succeeded") {
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    );
+    const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
-    await db
-      .update(userSubscription)
-      .set({
-        stripePriceId: subscription.items.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
-      })
-      .where(eq(userSubscription.stripeSubscriptionId, subscription.id));
+    await db.update(userSubscription).set({
+      stripePriceId: subscription.items.data[0].price.id,
+      stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+    }).where(eq(userSubscription.stripeSubscriptionId, subscription.id));
   }
 
-  return new NextResponse(null, { status: 200 });
+  res.status(200).end();
 }
-
-export default handler;
