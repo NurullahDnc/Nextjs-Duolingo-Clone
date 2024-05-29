@@ -2,7 +2,7 @@ import { cache } from "react";
 
 import db from "@/db/drizzle";
 import { auth } from "@clerk/nextjs/server";
-import { asc, eq } from "drizzle-orm";
+import { Column, asc, eq } from "drizzle-orm";
 import {
   challengeProgress,
   challenges,
@@ -53,11 +53,14 @@ export const getUnits = cache(async () => {
   }
 
   const data = await db.query.units.findMany({
+    orderBy: (units, {asc}) => [asc(units.order)],
     where: eq(units.courseId, userProgress.activeCourseId),
     with: {
       lessons: {
+        orderBy: (lessons, {asc}) => [asc(lessons.order)],
         with: {
           challenges: {
+            orderBy: (challenges, {asc}) => [asc(challenges.order)],
             with: {
               challengeProgress: {
                 where: eq(challengeProgress.userId, userId),
@@ -99,6 +102,16 @@ export const getCoursesById = cache(async (coursesId: number) => {
   try {
     const data = await db.query.courses.findFirst({
       where: eq(courses.id, coursesId),
+      with: {
+        units: {
+          orderBy: (units, {asc}) => [asc(units.order)],
+          with: {
+            lessons: {
+              orderBy: (lessons, {asc}) => [asc(lessons.order)]
+            }
+          }
+        }
+      }
     });
     return data;
   } catch (error) {
@@ -249,3 +262,31 @@ export const getUserSubscription = cache(async () => {
   
 
 });
+
+
+export const getTopTenUsers = cache(async ()=>{
+
+  const {userId} = auth()
+
+  if (!userId) {
+    return []
+  }
+
+  const data = await db.query.userProgress.findMany({
+
+    orderBy: (userProgress, {desc} ) =>[desc(userProgress.points)],
+
+    limit: 10,
+    columns: {
+      userId: true,
+      userName: true,
+      userImageSrc: true,
+      points: true
+    }
+
+  })
+
+  return data;
+
+})
+

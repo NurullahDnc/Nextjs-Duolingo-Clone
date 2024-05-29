@@ -7,13 +7,13 @@ import Image from "next/image";
 import { useTransition } from "react";
 import { toast } from "sonner";
 
-const POINTS_TO_REFILL = 10
-
 interface ItemsProps{
     hearts: number,
     points: number,
     hasActiveSubscription: boolean
 }
+
+const POINTS_TO_REFILL = 10;
 
 const Items = ({hearts, points, hasActiveSubscription}: ItemsProps) => {
 

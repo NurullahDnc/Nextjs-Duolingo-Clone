@@ -1,6 +1,6 @@
 import { getLesson, getUserProgress, getUserSubscription } from "@/db/queries";
 import { redirect } from "next/navigation";
-import Quiz from "../quiz";
+import Quiz from "./quiz";
 
 interface LessonIdPageProps {
   params:{
@@ -35,7 +35,7 @@ const LessonIdPage = async ({params}: LessonIdPageProps) => {
       initialLessonChallenges={lesson.challenges}
       initialHearts={userProgress.hearts}
       initialPercentage={initialPercentage}
-      userSubscription={userSubscription}
+      userSubscription={null}
     />
   );
 };
