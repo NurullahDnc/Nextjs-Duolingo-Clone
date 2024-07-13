@@ -7,7 +7,7 @@
    </a>
  <h3 align="center">Nextjs-Duolingo-Clone</h3>
  </div>
- 
+  
  
  
  ## About The Project
